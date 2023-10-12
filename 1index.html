@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vues-js</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js" integrity="sha512-Wbf9QOX8TxnLykSrNGmAc5mDntbpyXjOw9zgnKql3DgQ7Iyr5TCSPWpvpwDuo+jikYoSNMD9tRRH854VfPpL9A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- <script type="module" src="destructuration.js"></script> -->
+     <!-- <script type="module" src="spread-operator.js"></script> -->
+   <!-- <script type="module" src="ternary-operator.js"></script> -->
+    <!-- <script type="module" src="for-in.js"></script> -->
+    <!-- <script src="for-of.js"></script> -->
+    <!-- <script type="module" src="17exercices.js"></script> -->
+    <div v-cloak id="app">
+
+        <div>
+            <input  id="note"  type="number" placeholder="Entrer la note du test" v-model="valueTest">
+            <p>{{ valueTest }}</p>
+            <label for="note">{{ test }}</label>
+        </div>
+
+        <h1>{{ msg }}</h1>
+        <button @click="count++">count {{ count }}</button> <br><br>
+        <a href="#" @click.prevent="log">My link</a><br><br>
+        <fieldset>
+            <legend><strong>Formulaire</strong></legend>
+            <p> Votre nom: <strong>{{ textInput }}</strong> </p>
+            <input id="input" type="text" placeholder="Enter FirstName" v-on:input ="saveInput" :value="textInput"><br><br>
+            
+            <p> Votre  prénom :<strong>{{ textInpute }}</strong></p>
+            <input id="inpute" type="text" placeholder="Enter LastName" v-on:input ="saveInpute" :value="textInpute"><br><br>
+            
+            <input type="password" placeholder="Enter your password" v-on:input ="savePasseword" :value="pwd">
+            <p> Votre Mot de passe : <strong>{{ pwd }}</strong> </p>
+        </fieldset>
+        <h2>checkbox</h2>
+        <div>
+            <input type="checkbox" id="checkbox" v-model="checked" />
+            <label for ="checkbox">{{ checkbox }}</label>
+        </div>
+        <h2>multi checkbox</h2>
+        <div>Noms sélectionnées : {{ checkedNames }}</div>
+
+        <input type="checkbox" id="Martin" value="Martin" v-model="checkedNames">
+        <label for="Martin">Martin</label>
+
+        <input type="checkbox" id="Possidius" value="Possidius" v-model="checkedNames">
+        <label for="Possidius">Possidius</label>
+
+        <input type="checkbox" id="Axel" value="Axel" v-model="checkedNames">
+        <label for="Axel">Axel</label>
+
+        <input type="checkbox" id="Faris" value="Faris" v-model="checkedNames">
+        <label for="faris">Faris</label>
+
+
+        <input type="checkbox" id="Gabriel" value="Gabriel" v-model="checkedNames">
+        <label for="Gabriel">Gabriel</label>
+
+        <h2>Radio</h2>
+        <div>choix: {{ picked }}</div>
+        <input type="radio" id="un" value="Un" v-model="picked"/>
+        <label for="un">Un</label>
+        <input type="radio" id="deux" value="deux" v-model="picked"/>
+        <label for="un">Deux</label>
+
+        <h2>Select</h2>
+        <div>Selection: {{ selected }}</div>
+        <select v-model="selected">
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+            <option value="d">D</option>
+            <option value="e">E</option>
+            <option value="f">F</option>
+            <option value="g">G</option>
+
+        </select><br><br><br>
+
+        <div>
+        
+                <div v-for="test in tests">
+                    <input value="note" id="note"  type="number" placeholder="Entrer la note du test" v-model="valueTest">
+                    <p> Ce truc est :{{ valueTest }}</p>
+                    <label for="note">{{ test }}</label>
+                </div>
+                <div>
+                    <input  type="text" >
+                    <input type="text">
+                    <input type="select">
+                </div>
+               <button type="submit">Sauvergarder</button>
+          
+        </div>
+
+        <table>
+            <caption>Liste des étudiants</caption>
+            <tbody>
+                <thead>
+                    <th>Noms</th>
+                    <th>Prénom</th>
+                </thead>
+                <!-- <tr>
+                    <td>CAPO</td>
+                    <td>Possidius</td>
+                </tr>
+                <tr>
+                    <td>YESSOUFOU</td>
+                    <td>Faris</td>
+                </tr>
+                <tr>
+                    <td>KOUAGOU</td>
+                    <td>Tiburce</td>
+                </tr> -->
+                <tbody>
+                    <tr v-for="student in students">
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.fname }}</td>
+                        <td>{{ student.lname }}</td>
+
+                    </tr>
+                </tbody>
+            </tbody>
+        </table>
+        
+        <h1>Liste des language informatiques</h1>
+        <ul>
+            <li  v-for="(lang,ind) in language" :key="ind">{{ lang }}</li>
+        </ul>
+
+
+        <p>{{ verifyAddress()}}</p>
+
+        <p  id="paragraphe" ref="reference">Bonjour Mlle/Mr la rue fait briller la rue c'est totalement carré l'équipage  </p>
+    </div>
+    <script type="module">
+        import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.esm-browser.min.js" ;
+        // fonction qui permet de monter l'application
+        // const {createApp} = Vue;
+        // on monte l'application Vue dans la div#app
+        createApp({
+            // liste d'option
+            data(){ 
+                
+                return {
+                    msg :"Welcome ",
+                    titleClass : 'title',
+                    count:0, 
+                    textInput : "",
+                    pwd : "",
+                    checkNames : "",
+                    log :"",
+                    textInput:"",
+                    textInpute:"",
+                    checked:"",
+                    checkbox:"",
+                    checkedNames:[],
+                    picked:"",
+                    selected:"",
+                    valueTest: "",
+                    
+
+                    students: [
+                        {id: 1, fname: "CAPO", lname: "Posiidius"},
+                        {id: 2, fname: "YESSOUFOU", lname: "Faris"},
+                        {id: 3, fname: "KOUAGOU", lname: "Tiburce"},
+                        {id: 4, fname: "VIGAN", lname: "Nicole"},
+                        {id: 5, fname: "CHITOU", lname:"Warris"}
+                    ],
+
+                    language:[
+                        "html",
+                        "css" ,
+                        "javascript",
+                        "java",
+                        "php",
+                    ],
+
+                    user:{
+                        fistname: "jonh",
+                        address:{
+                            tel: "+22994969775",
+                            email:'test@example.com'
+                        }
+                    }
+
+
+                }
+            },
+            mounted(){
+                this.start()
+            },
+                
+            methods:{
+            //    log(event){
+                //     event.preventDefault();
+                //     console.log('clicked link 🎮');
+                //    }
+                
+                saveInput(e){
+                    this.textInput = e.target.value;
+                    
+                },
+                saveInpute(e){
+                    this.textInpute = e.target.value;
+               
+               },
+               savePasseword(e){
+                this.pwd = e.target.value;
+               },
+               verifyAddress(){
+                return this.user.address.email.endsWith("@highfive.com") ? `${this.user.address.email} est une  adresse mail Highfive`: `${this.user.address.email} n'est pas une addresse mail Highfive`;
+               },
+
+               start(){
+                document.addEventListener("DOMContentLoaded", function(){
+
+                })
+            },
+            start(){
+              this.$refs.reference.innerHTML = "Hello world !";
+            },
+
+           
+            },
+
+            watch:{
+                count(newValue, oldValue){
+                    console.log(`Ancienne valeur = ${oldValue} Nouvelle valeur =${newValue}`);
+                },
+
+
+            }
+
+
+        }).mount("#app")
+    </script>
+
+    <script> 
+    
+    </script>
+</body>
+</html>
